@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 
+
+RUN apt-get update \
+  && apt-get install -y gnupg \
+  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+  && echo "deb https://download.mono-project.com/repo/ubuntu stable-buster main" >> /etc/apt/sources.list.d/mono-official-stable.list \
+  && sed -i'.bak' 's/$/ contrib/' /etc/apt/sources.list \
+  && apt-get update \
+  && apt-get install -y \
+      libfontconfig1 \
+      libgdiplus \
+      ttf-mscorefonts-installer \
+      libc6-dev \
+      libx11-dev \
+  && rm -rf /var/lib/apt/lists/*
